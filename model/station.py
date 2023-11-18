@@ -1,11 +1,10 @@
-class Station :
+from mongoengine import Document, StringField
 
-    def __init__(self, id, name,type,latitude,longitude,description,image_url,sensors):
-        self.id = id
-        self.name = name
-        self.type = type
-        self.latitude = latitude
-        self.longitude = longitude
-        self.description = description
-        self.image_url = image_url
-        self.sensors = sensors
+
+class stations(Document):
+    description = StringField(required=True)
+    image_url = StringField(required=True)
+    latitude = StringField(required=False)
+    longitude = StringField(required=False)
+    name = StringField(required=True)
+    type = StringField(required=True)
