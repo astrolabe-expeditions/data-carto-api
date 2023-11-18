@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+from flask_cors import CORS
 from api.stations import stations_route
 from api.sensors import sensors_route
 from api.records import records_route
@@ -15,7 +16,7 @@ app.register_blueprint(records_route)
 
 
 connect(host=os.environ.get('MONGO_URI'))
-
+CORS(app)
 
 
 if __name__ == "__main__":
