@@ -41,6 +41,7 @@ def get_geojson_from_record(record_list):
         properies["temp_sea_mean"] = float(record.temp_sea_mean)
         properies["ec_sea_mean"] = float(record.ec_sea_mean)
         properies["salinity"] = float(record.salinity)
+        properies["depth"] = float(record.depth)
         feature["properties"] = properies
         features.append(feature)
     line_geometry ={}
@@ -69,6 +70,7 @@ def get_json_from_record(record_list):
         record_data["temp_sea_mean"] = float(record.temp_sea_mean)
         record_data["ec_sea_mean"] = float(record.ec_sea_mean)
         record_data["salinity"] = float(record.salinity)
+        record_data["depth"] = float(record.depth)
         json.append(record_data)
     return {"records":json}    
 
