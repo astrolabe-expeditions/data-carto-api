@@ -9,7 +9,7 @@ def get_records_service(id_station,id_sensor):
     line["type"]= "LineString"
     coordinates=[]
     try:
-        for record in records.objects.filter(sensor_id=id_sensor).filter(latitude__ne=0.0).filter(longitude__ne=0.0).order_by('+recorded_at'):
+        for record in records.objects.filter(sensor_id=id_sensor).filter(latitude__ne="0.0").filter(longitude__ne="0.0").order_by('+recorded_at'):
             feature = {}
             feature["type"] = "Feature"
             geometry ={}
@@ -29,7 +29,10 @@ def get_records_service(id_station,id_sensor):
             properies["salinity"] = float(record.salinity)
             feature["properties"] = properies
             features.append(feature)
-        line["coordinates"] = coordinates
+        line_geometry ={}
+        line_geometry["type"] = "LineString"
+        line_geometry["coordinates"] = coordinates
+        line["geometry"] = line_geometry        
         line["properties"] = {}
 
         features.append(line)
