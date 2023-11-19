@@ -22,7 +22,7 @@ def get_geojson_from_record(record_list):
     line ={}
     line["type"]="Feature"
     coordinates=[]
-    
+
     for record in record_list:
         feature = {}
         feature["type"] = "Feature"
@@ -33,48 +33,50 @@ def get_geojson_from_record(record_list):
         feature["geometry"] = geometry
         properies = {}
         properies["recorded_at"] = record.recorded_at
-        properies["battery_voltage"] = float(record.battery_voltage)
-        properies["battery_percentage"] =float(record.battery_percentage)
-        properies["pression_ext"] =float(record.pression_ext)
-        properies["temp_ext"] = float(record.temp_ext)
-        properies["temp_int"] = float(record.temp_int)
-        properies["temp_sea_mean"] = float(record.temp_sea_mean)
-        properies["ec_sea_mean"] = float(record.ec_sea_mean)
-        properies["salinity"] = float(record.salinity)
-        properies["depth"] = float(record.depth)
+        properies["battery_voltage"] = return_float_or_none(record.battery_voltage)
+        properies["battery_percentage"] =return_float_or_none(record.battery_percentage)
+        properies["pression_ext"] =return_float_or_none(record.pression_ext)
+        properies["temp_ext"] = return_float_or_none(record.temp_ext)
+        properies["temp_int"] = return_float_or_none(record.temp_int)
+        properies["temp_sea_mean"] = return_float_or_none(record.temp_sea_mean)
+        properies["ec_sea_mean"] = return_float_or_none(record.ec_sea_mean)
+        properies["salinity"] = return_float_or_none(record.salinity)
+        properies["depth"] = return_float_or_none(record.depth)
         feature["properties"] = properies
         features.append(feature)
     line_geometry ={}
     line_geometry["type"] = "LineString"
     line_geometry["coordinates"] = coordinates
-    line["geometry"] = line_geometry        
+    line["geometry"] = line_geometry
     line["properties"] = {}
 
     features.append(line)
-    geojson["features"] = features    
+    geojson["features"] = features
     return geojson
 
 def get_json_from_record(record_list):
-    
-    json = [] 
+
+    json = []
     for record in record_list:
         record_data = {}
-        record_data["longitude"] = float(record.longitude)
-        record_data["latitude"] = float(record.longitude)
+        record_data["longitude"] = return_float_or_none(record.longitude)
+        record_data["latitude"] = return_float_or_none(record.longitude)
         record_data["recorded_at"] = record.recorded_at
-        record_data["battery_voltage"] = float(record.battery_voltage)
-        record_data["battery_percentage"] =float(record.battery_percentage)
-        record_data["pression_ext"] =float(record.pression_ext)
-        record_data["temp_ext"] = float(record.temp_ext)
-        record_data["temp_int"] = float(record.temp_int)
-        record_data["temp_sea_mean"] = float(record.temp_sea_mean)
-        record_data["ec_sea_mean"] = float(record.ec_sea_mean)
-        record_data["salinity"] = float(record.salinity)
-        record_data["depth"] = float(record.depth)
+        record_data["battery_voltage"] = return_float_or_none(record.battery_voltage)
+        record_data["battery_percentage"] =return_float_or_none(record.battery_percentage)
+        record_data["pression_ext"] =return_float_or_none(record.pression_ext)
+        record_data["temp_ext"] = return_float_or_none(record.temp_ext)
+        record_data["temp_int"] = return_float_or_none(record.temp_int)
+        record_data["temp_sea_mean"] = return_float_or_none(record.temp_sea_mean)
+        record_data["ec_sea_mean"] = return_float_or_none(record.ec_sea_mean)
+        record_data["salinity"] = return_float_or_none(record.salinity)
+        properies["depth"] = return_float_or_none(record.depth)
         json.append(record_data)
-    return {"records":json}    
+    return {"records":json}
 
 
+def return_float_or_none(value):
+    if(value is None):
+        return None
+    return float(value)
 
-
-   
