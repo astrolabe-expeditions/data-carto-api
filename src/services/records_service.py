@@ -5,6 +5,9 @@ def get_records_service(id_station,id_sensor):
     geojson ={}
     geojson["type"]= "FeatureCollection"
     features =[]
+    line ={}
+    line["type"]= "LineString"
+    coordinates=[]
     try:
         for record in records.objects.filter(sensor_id=id_sensor).filter(latitude__ne=0.0).filter(longitude__ne=0.0):
             feature = {}
@@ -12,6 +15,7 @@ def get_records_service(id_station,id_sensor):
             geometry ={}
             geometry["type"]= "Point"
             geometry["coordinates"] = [float(record.longitude),float(record.latitude)]
+            coordinates.append([float(record.longitude),float(record.latitude)])
             feature["geometry"] = geometry
             properies = {}
             properies["recorded_at"] = record.recorded_at
@@ -25,6 +29,11 @@ def get_records_service(id_station,id_sensor):
             properies["salinity"] = float(record.salinity)
             feature["properties"] = properies
             features.append(feature)
+        line["coordinates"] = coordinates
+        line["properties"] = {}
+
+        features.append(line)
+        
         geojson["features"] = features
         return geojson
     except Exception as e:
