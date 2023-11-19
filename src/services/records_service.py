@@ -6,7 +6,7 @@ def get_records_service(id_station,id_sensor):
     geojson["type"]= "FeatureCollection"
     features =[]
     line ={}
-    line["type"]= "LineString"
+    line["type"]="Feature"
     coordinates=[]
     try:
         for record in records.objects.filter(sensor_id=id_sensor).filter(latitude__ne="0.0").filter(longitude__ne="0.0").order_by('+recorded_at'):
