@@ -2,10 +2,16 @@ from model.station import stations
 from services.sensors_service import get_sensors_id_service
 from flask import make_response
 
-def get_stations_service():
+def get_stations_service(type_station):
     station_list=[]
+
+    
+    if(type_station != ""):
+        data=stations.objects.filter(type = type_station.capitalize())
+    else:
+        data=stations.objects    
     try:
-        for station in stations.objects:
+        for station in data:
             station_data = {}
             station_data['id'] = str(station.id)
             station_data['description'] = station.description
