@@ -5,6 +5,9 @@ from api.stations import stations_route
 from api.sensors import sensors_route
 from api.records import records_route
 from mongoengine import connect
+from dotenv import load_dotenv
+
+load_dotenv() # load environment variables from .env file
 
 DEFAULT_PORT = "8080"
 
