@@ -5,11 +5,10 @@ from flask import make_response
 def get_stations_service(type_station):
     station_list=[]
 
-    
     if(type_station != ""):
         data=stations.objects.filter(type = type_station.capitalize())
     else:
-        data=stations.objects    
+        data=stations.objects
     try:
         for station in data:
             station_data = {}
@@ -26,4 +25,4 @@ def get_stations_service(type_station):
 
         return {"stations": station_list}
     except Exception as e:
-        return make_response({'message' : str(e)}, 404)  
+        return make_response({'message' : str(e)}, 404)
